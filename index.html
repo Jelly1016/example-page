@@ -1,123 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>选择题表单</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f7f7f7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 350px;
-    }
-    h2 {
-      text-align: center;
-    }
-    .options {
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 10px;
-      background: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-    .result {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>问题</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h2>在过去的一周年里，我们一起一共看了几次烟花？</h2>
+    <h1>去年的一周年中，我们一共看了几次烟花？</h1>
     <form id="questionForm">
-      <div class="options">
-        <label><input type="radio" name="choice" value="A" required> 4次</label>
-        <label><input type="radio" name="choice" value="B"> 3次</label>
-      </div>
-      <button type="submit" id="submitBtn">提交</button>
+      <label>
+        <input type="radio" name="choice" value="A" /> A：三次
+      </label>
+      <label>
+        <input type="radio" name="choice" value="B" /> B：四次
+      </label>
+      <button type="submit">提交</button>
     </form>
-    <div class="result" id="resultText"></div>
+
+    <div id="result" class="hidden"></div>
   </div>
 
-  <script>
-    const form = document.getElementById('questionForm');
-    const resultText = document.getElementById('resultText');
-    const submitBtn = document.getElementById('submitBtn');
-    const radios = form.elements['choice'];
-
-    const STORAGE_KEY = 'userChoice';
-
-    // 回显上次选择
-    function loadPreviousChoice() {
-      const savedChoice = localStorage.getItem(STORAGE_KEY);
-      if (savedChoice) {
-        // 设置已选择的 radio
-        for (const radio of radios) {
-          if (radio.value === savedChoice) {
-            radio.checked = true;
-            radio.disabled = true;
-          } else {
-            radio.disabled = true;
-          }
-        }
-        submitBtn.disabled = true;
-        displayResult(savedChoice);
-        return true;
-      }
-      return false;
-    }
-
-    // 显示结果
-    function displayResult(choice) {
-      if (choice === 'A') {
-        resultText.textContent = '去厨房看看吧';
-      } else if (choice === 'B') {
-        resultText.textContent = '你错了';
-      }
-    }
-
-    // 提交处理
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const choice = radios.value;
-
-      localStorage.setItem(STORAGE_KEY, choice);
-      displayResult(choice);
-
-      for (const radio of radios) {
-        radio.disabled = true;
-      }
-      submitBtn.disabled = true;
-    });
-
-    // 页面加载时检查
-    loadPreviousChoice();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
