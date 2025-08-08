@@ -18,7 +18,7 @@ if (refreshCount > 10) {
 const savedChoice = localStorage.getItem(LOCAL_KEY);
 if (savedChoice) {
   form.classList.add('hidden');
-  resultDiv.textContent = `你选择了：${savedChoice === 'A' ? '三次' : '四次'}`;
+  resultDiv.textContent = `你回答错了`;
   resultDiv.classList.remove('hidden');
 }
 
@@ -29,6 +29,6 @@ form.addEventListener('submit', function (e) {
 
   localStorage.setItem(LOCAL_KEY, choice);
   form.classList.add('hidden');
-  resultDiv.textContent = `你选择了：${choice === 'A' ? '三次' : '四次'}`;
+  resultDiv.textContent = `去看看厨房吧`;
   resultDiv.classList.remove('hidden');
 });
